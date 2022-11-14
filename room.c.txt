@@ -1,0 +1,50 @@
+#include <stdio.h>
+struct room_info
+{
+    int choice_no[10];
+    int room_frequency[10];
+    float room_cost[10];
+} r1;     //change size accordingly
+void room(int m)
+{
+    int d=0;
+    while(m>0)
+    {
+        printf("Enter room choice %d:",d+1);
+        scanf("%d",&r1.choice_no[d]);
+        printf("Enter no. of rooms:");
+        scanf("%d",&r1.room_frequency[d]);
+        if(r1.room_frequency[d]>m)
+        {
+            int e;
+            printf("The number of romms selected exceeds!\nDo you want to increase the number?\nSelect 1 for yes and 2 for no:");
+            r:scanf("%d",&e);
+            switch(e)
+            {
+                case 1:
+                m=r1.room_frequency[d];
+                break;
+                case 2:
+                r1.room_frequency[d]=m;
+                break;
+                default:
+                {
+                    printf("Enter the valid choice!!!");
+                    goto r;
+                } 
+            }
+        }
+        //use file handling here
+        m=m-r1.room_frequency[d];
+        d++;
+    }
+}
+int main()
+{
+    //use clear screen function
+    int n;
+    printf("Enter the total number of rooms");
+    scanf("%d",&n);
+    room(n);
+    return 0;
+}

@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct cost
+{
+    float travel_cost;
+    float room_cost_total;
+    float food_cost_total;
+    float total_cost;
+} c1;
+float r_cost(float r[],int s[],int m)     //r[] is for room cost, s[] is for no. of rooms, m=no of rooms(in total)
+{
+    float t=0;
+    for(int i=0;i<m;i++)
+    {
+        t+=r[i]*s[i];
+    }
+    return t;
+}
+float food_cost(int m)     //use file handling     m=number of members
+{
+    float a,b,c,d,total;
+    total=(a+b+c+d)*m;
+    return total;
+}
+float discount(int d)     //d=no of days
+{
+    float a;
+    if (d<=8)
+    {
+        a=0.00;
+    }
+    else if(d>8 && d<=15)
+    {
+        a=0.15;
+    }
+    else if(d>15 && d<=30)
+    {
+        a=0.25;
+    }
+    else
+    {
+        a=0.30;
+    }
+    return a;
+}
+float guide_fees(int z)     //z=type of tour
+{
+    float b;
+        if(z==1)
+    {
+        b=500.00;
+    }
+    else if(z==2)
+    {
+        b=2000.00;
+    }
+    else
+    {
+        b=0;
+    }
+    return b;
+}
+float f_cost(int d,int n,int n1,int s,float x[],int y[])      //d=no of days, n=no of rooms, n1 no of members,s= type of tour,t=travel cost
+{
+    float sum;
+    c1.travel_cost=;     //store travel cost in t
+    c1.food_cost_total=food_cost(n1);
+    c1.room_cost_total=r_cost(x,y,n);
+    sum=t+(food_cost_total+room_cost_total+guide_fees(s))*d;
+    sum-=sum*discount(d);
+    return sum;
+}
+int main()
+{
+    c1.travel_cost=f_cost();
+    return 0;
+}

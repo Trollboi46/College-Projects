@@ -1,0 +1,385 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#include<stdlib.h>
+void guwahati();   //done
+void shimla();     //done
+void london();     //done
+void kerala();     //done
+void thailand();   //done
+void rajasthan();  //done
+void japan();      //done
+void egypt();      //done
+void ooty();       //done
+float roominf();
+typedef struct mynode
+{
+    char name[100];
+    char gen[100];
+    int age;
+    struct mynode* link;
+} Node;
+Node* start = NULL;
+
+void add_node();
+void details();
+int k, amount;
+char type[100], place[100], date[100], addr[100],eml[100];
+struct room_info
+{
+    int choice_no[10];
+    int room_frequency[10];
+    float room_cost[10];
+} r1;     //change size accordingly
+void room(int m)
+{
+    int d=0;
+    while(m>0)
+    {
+        printf("Enter room choice %d: ",d+1);
+        scanf("%d",&r1.choice_no[d]);
+        printf("Enter no. of rooms: ");
+        scanf("%d",&r1.room_frequency[d]);
+        if(r1.room_frequency[d]>m)
+        {
+            int e;
+            printf("The number of rooms selected exceeds!\nDo you want to increase the number?\nSelect 1 for yes and 2 for no:");
+            r:scanf("%d",&e);
+            switch(e)
+            {
+                case 1:
+                m=r1.room_frequency[d];
+                break;
+                case 2:
+                r1.room_frequency[d]=m;
+                break;
+                default:
+                {
+                    printf("Enter the valid choice!!!");
+                    goto r;
+                }
+            }
+        }
+        //use file handling here
+        m=m-r1.room_frequency[d];
+        d++;
+    }
+}
+struct cost
+{
+    float travel_cost;
+    float room_cost_total;
+    float food_cost_total;
+    float total_cost;
+} c1;
+float r_cost(float r[],int s[],int m)     //r[] is for room cost, s[] is for no. of rooms, m=no of rooms(in total)
+{
+    float t=0;
+    for(int i=0;i<m;i++)
+    {
+        t+=r[i]*s[i];
+    }
+    return t;
+}
+float food_cost(int m)     //use file handling     m=number of members
+{
+    float a,b,c,d,total;
+    total=(a+b+c+d)*m;
+    return total;
+}
+float discount(int d)     //d=no of days
+{
+    float a;
+    if (d<=8)
+    {
+        a=0.00;
+    }
+    else if(d>8 && d<=15)
+    {
+        a=0.15;
+    }
+    else if(d>15 && d<=30)
+    {
+        a=0.25;
+    }
+    else
+    {
+        a=0.30;
+    }
+    return a;
+}
+float guide_fees(int z)     //z=type of tour
+{
+    float b;
+        if(z==1)
+    {
+        b=500.00;
+    }
+    else if(z==2)
+    {
+        b=2000.00;
+    }
+    else
+    {
+        b=0;
+    }
+    return b;
+}
+float f_cost(int d,int n,int n1,int s,float x[],int y[])      //d=no of days, n=no of rooms, n1 no of members,s= type of tour,t=travel cost
+{
+    float sum,t=0;
+    c1.travel_cost=0;     //store travel cost in t
+    c1.food_cost_total=food_cost(n1);
+    c1.room_cost_total=r_cost(x,y,n);
+    sum=t+(c1.food_cost_total+c1.room_cost_total+guide_fees(s))*d;
+    sum-=sum*discount(d);
+    return sum;
+}
+int main()
+{
+   int n,n1;
+   printf("***********************************************************************************************************************\n");
+   printf("\t\t\t\t\t Welcome to New India Tours and Travels!\n");
+   printf("\t\t\t\t\t ---------------------------------------\n");
+   printf("\t  We offer some of the best and the most sought after tours of a variety of places in the world !\n");
+   printf("\t  Hurry up and get upto 30%% on your next tour when you travel with us! (conditions apply)\n");
+   printf("\t                   ---------                                            -----------------\n");
+   printf("***********************************************************************************************************************\n");
+   printf("Below is our index where the tours we currently offer are displayed.\n");
+   printf("--------------------------------------------------------------------\n");
+   printf("You may choose any tour of your liking and we will further proceed with the itinerary regarding it.\n");
+   printf("---------------------------------------------------------------------------------------------------\n");
+   printf("(Here D is for days and N is for nights)\n-----------------------------------------\n");
+   printf("Also, the prices given with the tour are the price per person and exclusive of taxes.\n");
+   printf("------------------------------------------------------------------------------------\n");
+   printf("\nEnter any number from 1 to 10 for the tour of your choice: \n");
+   printf("1.Guwahati tour(6D/5N)(25000INR)\n");
+   printf("2.Shimla tour(6D/5N)(25000INR)\n");
+   printf("3.London & Paris tour(6D/5N)(30000INR)\n");
+   printf("4.Kerala tour(8D/7N)(30000INR)\n");
+   printf("5.Thailand Tour(7D/6N)(35000INR)\n");
+   printf("6.Rajasthan tour(7D/6N)(30000INR)\n");
+   printf("7.Japan tour(7D/6N)(50000INR)\n");
+   printf("8.Egypt Tour(8D/7N)(74000INR)\n");
+   printf("9.Ooty tour(12D/11N)(40000INR)\n");
+   scanf("\t %d",&n);
+   switch(n)
+   {
+      case 1: {guwahati();
+      n1=1;}
+      break;
+      case 2: {shimla();
+      n1=1;}
+      break;
+      case 3: {london();
+      n1=2;}
+      break;
+      case 4: {kerala();
+      n1=1;}
+      break;
+      case 5: {thailand();
+      n1=2;}
+      break;
+      case 6: {rajasthan();
+      n1=1;}
+      break;
+      case 7: {japan();
+      n1=2;}
+      break;
+      case 8: {egypt();
+      n1=2;}
+      break;
+      case 9: {ooty();
+      n1=1;}
+      break;
+      case 10:
+      break;
+      default:
+      printf("invalid choice");
+      break;
+
+   }
+    printf("\n\n\tYou have selected tour %d.\n",n);
+    printf("\n\tWe will now take some traveler information. Press any button to continue.\n\t(Beware that the information given will disappear)\n");
+    getch();
+    details();
+    int n2;
+    printf("Enter the total number of rooms: \n");
+    scanf("%d",&n2);
+    room(n2);
+    int s1,s2,s3,s4;
+    int x[100];
+    int y[100];
+    c1.travel_cost=f_cost(s1,s2,s3,s4,x[100],y[100]);
+    return 0;
+    }
+void guwahati()
+{
+ FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/guwahati.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+
+}
+void shimla()
+{
+  FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/shimla.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+
+
+}
+void london()
+{
+
+  FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/london.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+
+}
+void kerala()
+{
+    FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/kerala.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+
+}
+void thailand()
+{
+ FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/thailand.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+}
+void rajasthan()
+{
+  FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/rajasthan.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+}
+void japan()
+{
+  FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/japan.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+}
+void egypt()
+{
+   FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/egypt.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+
+}
+void ooty()
+{
+   FILE *fh;
+    fh = fopen("C://Users/dkshi/Downloads/cpminiprojfiles/ooty.txt","r");
+  if(fh != NULL )
+  {
+    char c;
+    while((c=fgetc(fh)) != EOF)
+     putchar(c);
+     fclose(fh);
+  }
+}
+void details()
+{
+    int i, a, ph, ph1;
+    char gen[100],val[100];
+    system("cls");
+
+    printf("\t\t\t\tEnter Number Of Passengers: ");
+    scanf("%d", &k);
+    printf("\t\t\t\tEnter Date of Departure (DD/MM/YY): ");
+    fflush(stdin);
+    gets(date);
+    for (i = 1; i <= k; i++) {
+        printf("\t\t\t\tEnter Passenger %d Name: ",i);
+        fflush(stdin);
+        gets(val);
+        printf("\t\t\t\tEnter Passenger %d Gender: ",i);
+        fflush(stdin);
+        gets(gen);
+        printf("\t\t\t\tEnter Passenger %d Age: ",i);
+        fflush(stdin);
+        scanf("%d", &a);
+        add_node(val, gen, a);
+    }
+    printf("\t\t\t\tEnter your address: ");
+    fflush(stdin);
+    gets(addr);
+    printf("\t\t\t\tEnter your mobile number: ");
+    scanf("%d",&ph);
+    printf("\t\t\t\tEnter your alternative mobile number: ");
+    scanf("%d",&ph1);
+    printf("\t\t\t\tEnter a valid email address for booking information: ");
+    fflush(stdin);
+    gets(eml);
+}
+void add_node(char lol[20],char der[6], int b)
+{
+    Node *newptr = NULL, *ptr;
+    newptr = (Node*)malloc(sizeof(Node));
+    strcpy(newptr->name, lol);
+    strcpy(newptr->gen, der);
+    newptr->age = b;
+    newptr->link = NULL;
+    if (start == NULL)
+        start = newptr;
+    else {
+        ptr = start;
+        while (ptr->link != NULL)
+            ptr = ptr->link;
+        ptr->link = newptr;
+    }
+}
+
+
+
+

@@ -1,0 +1,13 @@
+no. of passengers: 1
+basecharge: 15000
+totalamt: 26000
+discountamt: 26000
+date: 03/04/22
+name: john
+gender: male
+age: 34
+address: sadfasdf
+mobile: 4235852
+mobile1: 7045809458
+email: rohitshinde3083@gmail.com
+guidenumdays: 3
